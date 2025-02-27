@@ -8,6 +8,7 @@
 #define MESH_FIXED_ARRAY_H
 
 #include <iterator>
+#include "common.h"
 
 namespace mesh {
 

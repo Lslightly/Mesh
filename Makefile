@@ -35,13 +35,16 @@ endif
 .SUFFIXES:
 .SUFFIXES: .cc .c .o .d .test
 
-all: test build
+all: test build clangd
 
 build lib:
 	./bazel build $(BAZEL_CONFIG) -c opt //src:$(LIB)
 
 test check:
 	./bazel test $(BAZEL_CONFIG) //src:unit-tests --test_output=all --action_env="GTEST_COLOR=1"
+
+clangd:
+	./bazel run @hedron_compile_commands//:refresh_all -- $(BAZEL_CONFIG)
 
 install:
 	install -c -m 0755 bazel-out/$(BAZEL_PREFIX)-opt/bin/src/$(FS_LIB) $(PREFIX)/lib/$(INSTALL_LIB)
